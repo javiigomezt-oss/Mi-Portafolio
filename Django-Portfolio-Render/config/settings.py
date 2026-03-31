@@ -104,8 +104,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # For Dev
-EMAILHOST_USER = config("EMAIL_HOST_USER")
-EMAILHOST_PASSWD = config("EMAIL_HOST_PASSWORD")
+EMAILHOST_USER = config("EMAIL_HOST_USER", default="")
+EMAILHOST_PASSWD = config("EMAIL_HOST_PASSWORD", default="")
 
 # For Prod
 #EMAILHOST_USER = os.environ.get("EMAIL_HOST_USER")

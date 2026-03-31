@@ -1,24 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
     <title>Javiera Gómez | Digital CV</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="I am a seasoned Technology Support Engineer with a strong foundation in Linux administration, cloud technology, automation, and self taught full stack developer."
-    />
-    <meta
-      name="keywords"
-      content="Javiera Gómez, cloud engineer, web development, Linux, DevOps, Automation, full-stack developer, Cybersecurity, security"
-    />
+    <meta name="description"
+        content="I am a seasoned Technology Support Engineer with a strong foundation in Linux administration, cloud technology, automation, and self taught full stack developer." />
+    <meta name="keywords"
+        content="Javiera Gómez, cloud engineer, web development, Linux, DevOps, Automation, full-stack developer, Cybersecurity, security" />
     <meta name="author" content="Javiera Gómez" />
 
     <!-- Favicons -->
-    <link href="{% static 'assets/img/favicon.ico' %}" rel="icon"/>
+    <link href="{% static 'assets/img/favicon.ico' %}" rel="icon" />
     <link href="{% static 'assets/img/apple-touch-icon.ico' %}" rel="apple-touch-icon" />
 
     <!--========== BOX ICONS ==========-->
@@ -27,6 +24,7 @@
     <!--========== CSS ==========-->
     <link rel="stylesheet" href="{% static 'assets/css/styles_cv.css' %}">
 </head>
+
 <body>
     <!--========== HEADER ==========-->
     <header class=" l-header" id="header">
@@ -55,8 +53,8 @@
                         </a>
                     </li>
                     <li class="nav__item">
-                        <a href="#experience" class="nav__link">
-                            <i class='bx bx-briefcase-alt nav__icon'></i>Experiencia
+                        <a href="#proyecto" class="nav__link">
+                            <i class='bx bx-briefcase-alt nav__icon'></i>Proyectos de Desarrollo
                         </a>
                     </li>
                     <li class="nav__item">
@@ -83,19 +81,19 @@
                             <h1 class="home__title"><b>{{ personal_info.name }}</b></h1>
                             <h3 class="home__profession">{{ personal_info.role }}</h3>
                             <!-- View CV -->
-                            <div>
-                                <a href="{{ personal_info.cv_link }}" target="_blank"
-                                    class="home__button-movil">Download</a>
-                            </div>
+                            <a href="{% static 'assets/pdf/javiera_gomez_tapia_desarrolladora.pdf' %}" download
+                                class="home__button-movil">
+                                Descargar
+                            </a>
                         </div>
                         <div class="home__address bd-grid">
                             <span class="home__information">
                                 <i class='bx bx-map home__icon'></i> {{ personal_info.location }}
                             </span>
-                            <a href="mailto:rubico.adrian@gmail.com" target="_black" class="home__information">
+                            <a href="mailto:jf.gomeztapia@gmail.com" target="_black" class="home__information">
                                 <i class='bx bx-envelope home__icon'></i> {{ personal_info.email }}
                             </a>
-                            <a href="tel:+639219607099" target="_black" class="home__information">
+                            <a href="tel:+56986706374" target="_black" class="home__information">
                                 <i class='bx bx-phone home__icon'></i> {{ personal_info.phone }}
                             </a>
                         </div>
@@ -103,7 +101,7 @@
                     <!-- Theme change button -->
                     <i class="bx bx-moon change-theme" title="Theme" id="theme-button"></i>
                     <a title="Download PDF" class="bx bx-download generate-pdf"
-                        href="{{ personal_info.cv_link }}" target="_blank"></a>
+                        href="{% static 'assets/pdf/javiera_gomez_tapia_desarrolladora.pdf' %}" download></a>
                 </section>
                 <!--========== SOCIAL ==========-->
                 <section class="social section">
@@ -141,7 +139,7 @@
                                 <h3 class="education__title">{{ education_info.degree }}</h3>
                                 <span class="education__studies">{{ education_info.school_name }}</span>
                                 <span class="education__year">
-                                    {{ education_info.date_range  }} - 
+                                    {{ education_info.date_range }} -
                                     {% if education_info.is_current %}
                                     Present
                                     {% else %}
@@ -171,88 +169,126 @@
             <div class="resume__right">
                 <!--========== EXPERIENCE ==========-->
                 <section class="experience section" id="experience">
-                    <h2 class="section-title">Experiencia</h2>
+                    <h2 class="section-title">Proyectos de desarrollo</h2>
                     <div class="experience__container bd-grid">
-                        {% for experience in experiences %}
+                        {% for proyecto in proyectos %}
                         <div class="experience__content">
                             <div class="experience__time">
                                 <span class="experience__rounder"></span>
                                 <span class="experience__line"></span>
                             </div>
                             <div class="experience__data bd-grid">
-                                <h3 class="experience__title"><strong>{{ experience.title }}</strong></h3>
+                                <h3 class="experience__title">
+                                    <strong>{{ proyecto.titulo }}</strong>
+                                </h3>
+
                                 <span class="experience__company">
-                                    {{ experience.formatted_start_date }} - 
-                                    {% if experience.is_current %}
-                                    Present
-                                    {% else %}
-                                    {{ experience.formatted_end_date }}
-                                    {% endif %}
-                                    | {{ experience.company }}
+                                    {{ proyecto.fecha }}
                                 </span>
+
                                 <ul class="experience__list">
-                                    {% for description in experience.descriptions.all|dictsort:"order_number" %}
                                     <li class="experience__description">
                                         <span class="experience__circle"></span>
-                                        <div>{{ description.text }}</div>
+                                        <div>{{ proyecto.descripcion }}</div>
                                     </li>
-                                    {% endfor %}
                                 </ul>
+
                                 <div class="experience__technologies">
                                     <span>Tecnologías usadas</span>
                                     <ul class="experience__technologies-list">
-                                        {% for technology in experience.technologies.all %}
-                                        <li class="experience__technologies-item">{{ technology.name }}</li>
-                                        {% endfor %}
+                                        <li class="experience__technologies-item">
+                                            {{ proyecto.tecnologias }}
+                                        </li>
                                     </ul>
                                 </div>
+
+                                {% if proyecto.link %}
+                                <div>
+                                    <a href="{{ proyecto.link }}" target="_blank">
+                                        Ver proyecto
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                         {% endfor %}
                     </div>
                 </section>
-                <!--========== CERTIFICATES ==========-->
-                <section class="certificate section" id="certificates">
-                    <h2 class="section-title">Certificados</h2>
+                <section>
+                    <!--Experiencia laboral-->
+                    <section class="experience section" id="work">
+                        <h2 class="section-title">Experiencia Laboral</h2>
 
-                    <div class="certificate__container bd-grid">
-                        {% for issuer, portfolio_group in grouped_portfolio.items %}
-                            
+                        <div class="experience__container bd-grid">
+                            {% for exp in experiencia_laboral %}
+                            <div class="experience__content">
+                                <div class="experience__time">
+                                    <span class="experience__rounder"></span>
+                                    <span class="experience__line"></span>
+                                </div>
+
+                                <div class="experience__data bd-grid">
+                                    <h3 class="experience__title">
+                                        <strong>{{ exp.cargo }}</strong>
+                                    </h3>
+
+                                    <span class="experience__company">
+                                        {{ exp.fecha_inicio }} - {{ exp.fecha_fin }} | {{ exp.empresa }}
+                                    </span>
+
+                                    <p class="experience__description">
+                                        {{ exp.descripcion }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    <!--========== CERTIFICATES ==========-->
+                    <!-- <section class="certificate section" id="certificates">
+                        <h2 class="section-title">Certificados</h2>
+
+                        <div class="certificate__container bd-grid">
+                            {% for issuer, portfolio_group in grouped_portfolio.items %}
+
                             <div class="certificate__content bd-grid">
                                 {% for portfolio_info in portfolio_group %}
-                                    <h3 class="certificate__title">{{ portfolio_info.name }} ({{ portfolio_info.year }}) <a class="nav__linkcert" href="{{ portfolio_info.link3 }}" target="_blank"><i class='bx bx-link-external'></i></a></h3>
+                                <h3 class="certificate__title">{{ portfolio_info.name }} ({{ portfolio_info.year }}) <a
+                                        class="nav__linkcert" href="{{ portfolio_info.link3 }}" target="_blank"><i
+                                            class='bx bx-link-external'></i></a></h3>
                                 {% endfor %}
                                 <span class="certificate__company">{{ issuer }}</span>
                             </div>
-                        {% endfor %}
-                    </div>
-                </section>
-                <!--========== INTERESTS ==========-->
-                <section class="interests section">
-                    <h2 class="section-title">Intereses</h2>
-                    <div class="interests__container bd-grid">
-                        <div class="interests__content">
-                            <i class="bx bx-headphone interests__icon"></i>
-                            <span class="interests__name">Música</span>
+                            {% endfor %}
                         </div>
-                        <div class="interests__content">
-                            <i class="bx bx-coffee interests__icon"></i>
-                            <span class="interests__name">Café</span>
+                    </section> -->
+                    <!--========== INTERESTS ==========-->
+                    <section class="interests section">
+                        <h2 class="section-title">Intereses</h2>
+                        <div class="interests__container bd-grid">
+                            <div class="interests__content">
+                                <i class="bx bx-headphone interests__icon"></i>
+                                <span class="interests__name">Música</span>
+                            </div>
+                            <div class="interests__content">
+                                <i class="bx bx-coffee interests__icon"></i>
+                                <span class="interests__name">Café</span>
+                            </div>
+                            <div class="interests__content">
+                                <i class="bx bxs-plane-alt interests__icon"></i>
+                                <span class="interests__name">Viajes</span>
+                            </div>
+                            <div class="interests__content">
+                                <i class="bx bx-book interests__icon"></i>
+                                <span class="interests__name">Lecturas</span>
+                            </div>
+                            <div class="interests__content">
+                                <i class='bx bx-pyramid interests__icon'></i>
+                                <span class="interests__name">Bicicleta</span>
+                            </div>
                         </div>
-                        <div class="interests__content">
-                            <i class="bx bxs-plane-alt interests__icon"></i>
-                            <span class="interests__name">Viajes</span>
-                        </div>
-                        <div class="interests__content">
-                            <i class="bx bx-book interests__icon"></i>
-                            <span class="interests__name">Lecturas</span>
-                        </div>
-                        <div class="interests__content">
-                            <i class='bx bx-pyramid interests__icon'></i>
-                            <span class="interests__name">Bicicleta</span>
-                        </div>
-                    </div>
-                </section>
+                    </section>
             </div>
         </div>
         <p class="updated">Creación: Marzo 28, 2026</p>
@@ -264,4 +300,5 @@
     <!--========== MAIN JS ==========-->
     <script src="{% static 'assets/js/main_cv.js' %}"></script>
 </body>
+
 </html>

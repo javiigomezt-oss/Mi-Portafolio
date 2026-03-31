@@ -162,3 +162,26 @@ class Technology(models.Model):
     photo = models.URLField(blank=True, null=True)
     def __str__(self):
         return self.name
+    
+#Para proyectos de desarrollo
+class Proyecto(models.Model):
+    titulo = models.CharField(max_length=200)
+    descripcion = models.TextField()
+    tecnologias = models.CharField(max_length=200)
+    fecha = models.CharField(max_length=100, blank=True, null=True)
+    imagen = models.ImageField(upload_to='proyectos/', blank=True, null=True)
+    link = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return self.titulo
+
+#experiencia laboral 
+class ExperienciaLaboral(models.Model):
+    empresa = models.CharField(max_length=200)
+    cargo = models.CharField(max_length=200)
+    fecha_inicio = models.CharField(max_length=50)
+    fecha_fin = models.CharField(max_length=50, blank=True, null=True)
+    descripcion = models.TextField()
+
+    def __str__(self):
+        return f"{self.cargo} - {self.empresa}"

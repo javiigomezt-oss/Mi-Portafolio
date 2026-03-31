@@ -1,5 +1,5 @@
 from django.views.generic.base import TemplateView
-from .models import Personal, About, Experience, Description, Education, Technology, Portfolio
+from .models import Personal, About, Experience, Description, Education, Technology, Portfolio, Proyecto, ExperienciaLaboral
 from .forms import ContactForm
 from django.core.mail import send_mail
 from django.shortcuts import render
@@ -64,9 +64,12 @@ class DigitalCVPageView(TemplateView):
         context['personal'] = Personal.objects.all()
         context['education'] = Education.objects.all()
         context['technologies'] = Technology.objects.all()
+        context['proyectos'] = Proyecto.objects.all()
+        context['experiencia_laboral'] = ExperienciaLaboral.objects.all()
         context['portfolio'] = Portfolio.objects.filter(
             Q(filter='filter-certification')
         )
+
         
         grouped_portfolio = {}
         portfolios = sorted(context['portfolio'], key=attrgetter('year'), reverse=True) 
